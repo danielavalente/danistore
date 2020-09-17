@@ -20,18 +20,11 @@ public class CategoryResources {
 	@Autowired
 	private ServiceCategory service;
 
-//	@RequestMapping(method = RequestMethod.GET)
-//	public List<Category> list() {
-//
-//		Category cat1 = new Category(1, "tech");
-//		Category cat2 = new Category(2, "home");
-//
-//		List<Category> list = new ArrayList<>();
-//		list.add(cat1);
-//		list.add(cat2);
-//
-//		return list;
-//	}
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Category> list() {
+		List<Category> list = service.findAll();
+		return list;
+	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> findById(@PathVariable Integer id) {

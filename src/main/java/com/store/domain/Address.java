@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -23,6 +25,7 @@ public class Address implements Serializable {
 	private String neighborhood;
 	private String zipcode;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;

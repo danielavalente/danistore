@@ -12,7 +12,7 @@ import com.store.services.exceptions.ObjectNotFoundException;
 
 
 @Service
-public class ServiceCategory {
+public class CategoryService {
 	
 	@Autowired
 	private CategoryRepository repo;
@@ -27,6 +27,5 @@ public class ServiceCategory {
 	public List<Category> findAll() {
 		List<Category> list = repo.findAll();
 		return list;
-		
 	}
 }

@@ -30,6 +30,7 @@ public class City implements Serializable {
 		super();
 		this.id = id;
 		this.name = name;
+		this.state = state;
 	}
 
 	public Integer getId() {

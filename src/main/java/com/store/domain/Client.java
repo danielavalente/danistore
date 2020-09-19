@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.store.domain.enums.ClientType;
 
 @Entity
@@ -29,12 +30,16 @@ public class Client implements Serializable {
 	private String cpfOrCnpj;
 	private Integer type;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Address> addresses = new ArrayList<>();
 	
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> phones = new HashSet<>();
+	
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<>();
 	
 	public Client() {
 		
@@ -104,6 +109,14 @@ public class Client implements Serializable {
 	public void setPhones(Set<String> phones) {
 		this.phones = phones;
 	}
+	
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
 
 	@Override
 	public int hashCode() {
@@ -129,5 +142,6 @@ public class Client implements Serializable {
 			return false;
 		return true;
 	}
+
 	
 }

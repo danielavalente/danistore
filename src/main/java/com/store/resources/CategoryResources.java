@@ -1,6 +1,5 @@
 package com.store.resources;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +27,7 @@ public class CategoryResources {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> findById(@PathVariable Integer id) {
-
 		Category obj = service.find(id);
-
 		return ResponseEntity.ok().body(obj);
 	}
 

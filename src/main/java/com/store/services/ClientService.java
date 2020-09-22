@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.store.domain.Client;
-import com.store.domain.Client;
 import com.store.repositories.ClientRepository;
 import com.store.services.exceptions.ObjectNotFoundException;
 

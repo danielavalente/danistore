@@ -1,4 +1,4 @@
-package com.store.services.exceptions;
+package com.store.resources.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

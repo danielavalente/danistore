@@ -19,6 +19,7 @@ public class ClientResources {
 	@Autowired
 	private ClientService service;
 
+	// GET METHODS -----------------------
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Client> list() {
 		List<Client> list = service.findAll();
@@ -26,10 +27,15 @@ public class ClientResources {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> findById(@PathVariable Integer id) {
+	public ResponseEntity<Client> findById(@PathVariable Integer id) {
 		Client obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
-	
+	// POST METHODS -----------------------
+
+	// PUT METHODS -----------------------
+
+	// DELETE METHODS -----------------------
+
 }

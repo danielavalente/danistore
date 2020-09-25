@@ -1,4 +1,4 @@
-package com.store.resources.exceptions;
+package com.store.resources.exceptions.handlers;
 
 import java.io.Serializable;
 

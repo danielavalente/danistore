@@ -19,6 +19,7 @@ public class OrderResources {
 	@Autowired
 	private OrderService service;
 
+	//GET METHODS -----------------------
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Order> list() {
 		List<Order> list = service.findAll();
@@ -26,9 +27,15 @@ public class OrderResources {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> findById(@PathVariable Integer id) {
+	public ResponseEntity<Order> findById(@PathVariable Integer id) {
 		Order obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	// POST METHODS -----------------------
+
+	// PUT METHODS -----------------------
+
+	// DELETE METHODS -----------------------
 
 }

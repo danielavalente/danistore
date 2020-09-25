@@ -18,8 +18,7 @@ public class ClientService {
 
 	// Find All
 	public List<Client> findAll() {
-		List<Client> list = repo.findAll();
-		return list;
+		return repo.findAll();
 	}
 
 	// Find By Id

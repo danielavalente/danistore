@@ -2,6 +2,7 @@ package com.store.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.store.domain.Category;
+import com.store.dto.CategoryDTO;
 import com.store.services.CategoryService;
 
 @RestController
@@ -24,9 +26,10 @@ public class CategoryResources {
 
 	// GET METHODS -----------------------
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Category> list() {
+	public ResponseEntity<List<CategoryDTO>> findAll() {
 		List<Category> list = service.findAll();
-		return list;
+		List<CategoryDTO> listDTO = list.stream().map(obj -> new CategoryDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)

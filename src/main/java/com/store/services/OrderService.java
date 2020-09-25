@@ -18,8 +18,7 @@ public class OrderService {
 
 	// Find All
 	public List<Order> findAll() {
-		List<Order> list = repo.findAll();
-		return list;
+		return repo.findAll();
 	}
 
 	// Find By Id

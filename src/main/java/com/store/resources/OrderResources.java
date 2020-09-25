@@ -21,9 +21,9 @@ public class OrderResources {
 
 	//GET METHODS -----------------------
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Order> list() {
+	public ResponseEntity<List<Order>> findAll() {
 		List<Order> list = service.findAll();
-		return list;
+		return ResponseEntity.ok().body(list);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)

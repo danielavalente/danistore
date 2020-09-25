@@ -20,8 +20,7 @@ public class CategoryService {
 
 	// Find All
 	public List<Category> findAll() {
-		List<Category> list = repo.findAll();
-		return list;
+		return repo.findAll();
 	}
 
 	// Find By Id

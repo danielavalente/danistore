@@ -68,8 +68,14 @@ public class StoreApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Category cat1 = new Category(null, "Informática");
-		Category cat2 = new Category(null, "Escritório");
+		Category cat1 = new Category(null, "Computers");
+		Category cat2 = new Category(null, "Office");
+		Category cat3 = new Category(null, "Household");
+		Category cat4 = new Category(null, "Electronics");
+		Category cat5 = new Category(null, "Gardening");
+		Category cat6 = new Category(null, "Decor");
+		Category cat7 = new Category(null, "Health and Personal Care");
+		
 		
 		Product p1 = new Product(null, "Computer", 2000.00);
 		Product p2 = new Product(null, "Printer", 800.00);
@@ -84,7 +90,7 @@ public class StoreApplication implements CommandLineRunner {
 		p3.getCategories().addAll(Arrays.asList(cat1));
 		
 		
-		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
 		productRepository.saveAll(Arrays.asList(p1,p2,p3));
 		
 		
@@ -106,7 +112,7 @@ public class StoreApplication implements CommandLineRunner {
 		Client cli1 = new Client(null, "Maria Silva", "maria@gmail.com", "36378912377", ClientType.PESSOAFISICA);
 		cli1.getPhones().addAll(Arrays.asList("27363323", "93838393"));
 		
-		Address ad1 = new Address(null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", cli1, c1);
+		Address ad1 = new Address(null, "Rua Flores", "300", "Apt 203", "Jardim", "38220834", cli1, c1);
 		Address ad2 = new Address(null, "Av Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
 		
 		cli1.getAddresses().addAll(Arrays.asList(ad1, ad2));

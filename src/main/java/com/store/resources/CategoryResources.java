@@ -37,9 +37,10 @@ public class CategoryResources {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Category> findById(@PathVariable Integer id) {
+	public ResponseEntity<CategoryDTO> findById(@PathVariable Integer id) {
 		Category obj = service.find(id);
-		return ResponseEntity.ok().body(obj);
+		CategoryDTO objDTO = new CategoryDTO(obj);
+		return ResponseEntity.ok().body(objDTO);
 	}
 	
 	@RequestMapping(value = "/page", method = RequestMethod.GET)

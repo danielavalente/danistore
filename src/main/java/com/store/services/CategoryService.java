@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.store.domain.Category;
+import com.store.dto.CategoryDTO;
 import com.store.repositories.CategoryRepository;
 import com.store.resources.exceptions.DataIntegrityException;
 import com.store.resources.exceptions.ObjectNotFoundException;
@@ -61,5 +62,10 @@ public class CategoryService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
+	
+	//Conversion
+		public Category fromDTO (CategoryDTO objDTO) {
+			return new Category(objDTO.getId(), objDTO.getName());
+		}
 
 }

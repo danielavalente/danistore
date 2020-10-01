@@ -31,6 +31,7 @@ public class ResourceExceptionsHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}	
 	
+	//Handle MethodArgumentNotValid Exception and create a list of errors
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> validation(MethodArgumentNotValidException e, HttpServletRequest request) {
 		

@@ -42,8 +42,9 @@ public class CategoryService {
 
 	// Update
 	public Category update(Category obj) {
-		find(obj.getId());
-		return repo.save(obj);
+		Category newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 
 	// Delete
@@ -52,20 +53,24 @@ public class CategoryService {
 		try {
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException(
-					"It's not possible to delete a category that has products.");
+			throw new DataIntegrityException("It's not possible to delete a category that has products.");
 		}
 	}
-	
-	//Import objects - Pagination
+
+	// Import objects - Pagination
 	public Page<Category> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
-	
-	//Conversion
-		public Category fromDTO (CategoryDTO objDTO) {
-			return new Category(objDTO.getId(), objDTO.getName());
-		}
+
+	// Conversion
+	public Category fromDTO(CategoryDTO objDTO) {
+		return new Category(objDTO.getId(), objDTO.getName());
+	}
+
+	// UpdateData
+	public void updateData(Category newObj, Category obj) {
+		newObj.setName(obj.getName());
+	}
 
 }

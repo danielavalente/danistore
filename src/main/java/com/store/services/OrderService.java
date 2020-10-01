@@ -1,13 +1,20 @@
 package com.store.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.store.domain.BankSlipPayment;
 import com.store.domain.Order;
+import com.store.domain.OrderItem;
+import com.store.domain.enums.PaymentState;
+import com.store.repositories.OrderItemRepository;
 import com.store.repositories.OrderRepository;
+import com.store.repositories.PaymentRepository;
 import com.store.resources.exceptions.ObjectNotFoundException;
 
 @Service
@@ -15,6 +22,18 @@ public class OrderService {
 
 	@Autowired
 	private OrderRepository repo;
+	
+	@Autowired
+	private BankSlipService bankSlipService;
+	
+	@Autowired
+	private PaymentRepository paymentRepository;
+	
+	@Autowired
+	private ProductService productService;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	// Find All
 	public List<Order> findAll() {
@@ -27,4 +46,27 @@ public class OrderService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Order.class.getName()));
 	}
+	
+	// Add
+	@Transactional
+	public Order insert(Order obj) {
+		obj.setId(null);
+		obj.setInstance(new Date());
+		obj.getPayment().setState(PaymentState.PENDING);
+		obj.getPayment().setOrder(obj);
+		if (obj.getPayment() instanceof BankSlipPayment) {
+			BankSlipPayment pay = (BankSlipPayment) obj.getPayment();
+			bankSlipService.fillBankSlipDate(pay, obj.getInstance());
+		}
+		obj = repo.save(obj);
+		paymentRepository.save(obj.getPayment());
+		for (OrderItem ip : obj.getItens()) {
+			ip.setDiscount(0);
+			ip.setPrice(productService.find(ip.getProduct().getId()).getPrice());
+			ip.setOrder(obj);
+		}
+		orderItemRepository.saveAll(obj.getItens());
+		return obj;
+	}
+	
 }

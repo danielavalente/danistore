@@ -38,6 +38,10 @@ public class OrderItem implements Serializable {
 		return id.getOrder();
 	}
 	
+	public double getSubtotal() {
+		return (price - discount) * quantity;
+	}
+	
 	public Product getProduct() {
 		return id.getProduct();
 	}

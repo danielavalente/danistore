@@ -31,7 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// Define pages that the user can have free access to -> READ ONLY
 		private static final String[] PUBLIC_MATCHERS_GET = {
 				"/products/**",
-				"/categories/**"
+				"/categories/**",
+				"/clients/**"
 		};
 	
 	// Permit or not access of pages that were defined above

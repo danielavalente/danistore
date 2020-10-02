@@ -21,6 +21,7 @@ import com.store.domain.Product;
 import com.store.domain.State;
 import com.store.domain.enums.ClientType;
 import com.store.domain.enums.PaymentState;
+import com.store.domain.enums.Profile;
 import com.store.repositories.AddressRepository;
 import com.store.repositories.CategoryRepository;
 import com.store.repositories.CityRepository;
@@ -132,14 +133,19 @@ public class DbService {
 		Client cli1 = new Client(null, "Maria Silva", "maria@gmail.com", "36378912377", ClientType.PESSOAFISICA,pe.encode("123"));
 		cli1.getPhones().addAll(Arrays.asList("27363323", "93838393"));
 		
+		Client cli2 = new Client(null, "Ana Costa", "anacosta@gmail.com", "90779307011", ClientType.PESSOAFISICA,pe.encode("123"));
+		cli1.getPhones().addAll(Arrays.asList("93883321", "34252625"));
+		cli2.addProfile(Profile.ADMIN);
+		
 		Address ad1 = new Address(null, "Rua Flores", "300", "Apt 203", "Jardim", "38220834", cli1, c1);
 		Address ad2 = new Address(null, "Av Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+		Address ad3 = new Address(null, "Av Floriano", "2106", null, "Centro", "281777012", cli2, c2);
 		
 		cli1.getAddresses().addAll(Arrays.asList(ad1, ad2));
+		cli2.getAddresses().addAll(Arrays.asList(ad3));		
 		
-		
-		clientRepository.saveAll(Arrays.asList(cli1));
-		addressRepository.saveAll(Arrays.asList(ad1, ad2));
+		clientRepository.saveAll(Arrays.asList(cli1, cli2));
+		addressRepository.saveAll(Arrays.asList(ad1, ad2, ad3));
 		
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");

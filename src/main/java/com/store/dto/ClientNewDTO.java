@@ -46,6 +46,9 @@ public class ClientNewDTO implements Serializable {
 	
 	private Integer CityId;
 	
+	@NotEmpty(message = "This field is mandatory")
+	private String password;
+	
 	public ClientNewDTO() {}
 
 	public String getName() {
@@ -150,6 +153,14 @@ public class ClientNewDTO implements Serializable {
 
 	public void setCityId(Integer cityId) {
 		CityId = cityId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

@@ -16,12 +16,15 @@ import com.store.domain.Address;
 import com.store.domain.City;
 import com.store.domain.Client;
 import com.store.domain.enums.ClientType;
+import com.store.domain.enums.Profile;
 import com.store.dto.ClientDTO;
 import com.store.dto.ClientNewDTO;
 import com.store.repositories.AddressRepository;
 import com.store.repositories.ClientRepository;
+import com.store.resources.exceptions.AuthorizationException;
 import com.store.resources.exceptions.DataIntegrityException;
 import com.store.resources.exceptions.ObjectNotFoundException;
+import com.store.security.UserSS;
 
 @Service
 public class ClientService {
@@ -42,6 +45,13 @@ public class ClientService {
 
 	// Find By Id
 	public Client find(Integer id) {
+		
+		// Get logged in user and check
+		UserSS user = UserService.authenticated();
+		if (user == null || !user.hasRole(Profile.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Access denied");
+		}
+		
 		Optional<Client> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Client.class.getName()));

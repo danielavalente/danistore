@@ -5,17 +5,23 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.store.domain.BankSlipPayment;
+import com.store.domain.Client;
 import com.store.domain.Order;
 import com.store.domain.OrderItem;
 import com.store.domain.enums.PaymentState;
 import com.store.repositories.OrderItemRepository;
 import com.store.repositories.OrderRepository;
 import com.store.repositories.PaymentRepository;
+import com.store.resources.exceptions.AuthorizationException;
 import com.store.resources.exceptions.ObjectNotFoundException;
+import com.store.security.UserSS;
 
 @Service
 public class OrderService {
@@ -34,6 +40,9 @@ public class OrderService {
 	
 	@Autowired
 	private OrderItemRepository orderItemRepository;
+	
+	@Autowired
+	private ClientService clientService;
 
 	// Find All
 	public List<Order> findAll() {
@@ -68,5 +77,17 @@ public class OrderService {
 		orderItemRepository.saveAll(obj.getItens());
 		return obj;
 	}
+	
+	// Import objects - Pagination
+		public Page<Order> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+			UserSS user = UserService.authenticated();
+			if (user == null) {
+				throw new AuthorizationException("Access denied");
+			}
+			
+			PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+			Client client = clientService.find(user.getId());
+			return repo.findByClient(client, pageRequest);
+		}
 	
 }

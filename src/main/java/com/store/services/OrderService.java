@@ -16,6 +16,7 @@ import com.store.domain.Client;
 import com.store.domain.Order;
 import com.store.domain.OrderItem;
 import com.store.domain.enums.PaymentState;
+import com.store.repositories.ClientRepository;
 import com.store.repositories.OrderItemRepository;
 import com.store.repositories.OrderRepository;
 import com.store.repositories.PaymentRepository;
@@ -61,6 +62,7 @@ public class OrderService {
 	public Order insert(Order obj) {
 		obj.setId(null);
 		obj.setInstance(new Date());
+		obj.setClient(clientService.find(obj.getClient().getId()));
 		obj.getPayment().setState(PaymentState.PENDING);
 		obj.getPayment().setOrder(obj);
 		if (obj.getPayment() instanceof BankSlipPayment) {
@@ -71,10 +73,12 @@ public class OrderService {
 		paymentRepository.save(obj.getPayment());
 		for (OrderItem ip : obj.getItens()) {
 			ip.setDiscount(0);
-			ip.setPrice(productService.find(ip.getProduct().getId()).getPrice());
+			ip.setProduct(productService.find(ip.getProduct().getId()));
+			ip.setPrice(ip.getProduct().getPrice());
 			ip.setOrder(obj);
 		}
 		orderItemRepository.saveAll(obj.getItens());
+		System.out.println(obj);
 		return obj;
 	}
 	

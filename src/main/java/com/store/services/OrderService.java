@@ -16,7 +16,6 @@ import com.store.domain.Client;
 import com.store.domain.Order;
 import com.store.domain.OrderItem;
 import com.store.domain.enums.PaymentState;
-import com.store.repositories.ClientRepository;
 import com.store.repositories.OrderItemRepository;
 import com.store.repositories.OrderRepository;
 import com.store.repositories.PaymentRepository;
@@ -44,6 +43,9 @@ public class OrderService {
 	
 	@Autowired
 	private ClientService clientService;
+	
+	@Autowired
+	private EmailService emailService;
 
 	// Find All
 	public List<Order> findAll() {
@@ -78,7 +80,7 @@ public class OrderService {
 			ip.setOrder(obj);
 		}
 		orderItemRepository.saveAll(obj.getItens());
-		System.out.println(obj);
+		emailService.sendOrderConfirmationEmail(obj);
 		return obj;
 	}
 	

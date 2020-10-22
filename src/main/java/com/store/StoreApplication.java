@@ -1,12 +1,17 @@
 package com.store;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.store.services.S3Service;
+
 @SpringBootApplication
 public class StoreApplication implements CommandLineRunner {
 	
+	@Autowired
+	private S3Service s3Service;	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(StoreApplication.class, args);
@@ -14,8 +19,7 @@ public class StoreApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		
-			
+		s3Service.uploadFile("C:\\Users\\danie\\Documents\\Udemy\\Udemy - SpringBoot Ionic\\imagens\\image_from_ios-4.jpg");			
 	}
 	
 	

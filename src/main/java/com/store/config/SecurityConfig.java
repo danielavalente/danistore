@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_MATCHERS_GET = { "/products/**", "/categories/**" };
 
 	// Define pages that the user can have free access to -> POST ONLY
-	private static final String[] PUBLIC_MATCHERS_POST = { "/clients/**", "/auth/forgot/**" };
+	private static final String[] PUBLIC_MATCHERS_POST = { "/clients", "/clients/picture", "/auth/forgot/**" };
 
 	// Permit or not access of pages that were defined above
 	// CSRF and sessionCreationPolicy to avoid the creation of a session

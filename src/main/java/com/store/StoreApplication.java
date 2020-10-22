@@ -19,7 +19,7 @@ public class StoreApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		s3Service.uploadFile("C:\\Users\\danie\\Documents\\Udemy\\Udemy - SpringBoot Ionic\\imagens\\image_from_ios-4.jpg");			
+				
 	}
 	
 	

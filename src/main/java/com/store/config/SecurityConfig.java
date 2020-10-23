@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_MATCHERS = { "/h2-console/**" };
 
 	// Define pages that the user can have free access to -> READ ONLY
-	private static final String[] PUBLIC_MATCHERS_GET = { "/products/**", "/categories/**" };
+	private static final String[] PUBLIC_MATCHERS_GET = { "/products/**", "/categories/**", "/states/**" };
 
 	// Define pages that the user can have free access to -> POST ONLY
 	private static final String[] PUBLIC_MATCHERS_POST = { "/clients", "/auth/forgot/**" };
